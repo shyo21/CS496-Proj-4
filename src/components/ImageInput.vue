@@ -1,7 +1,13 @@
 <style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 .container img {
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 100%;
+  max-height: 100%;
   display: block;
   margin: auto;
   margin-top: 20px;
@@ -15,20 +21,16 @@
 <template>
   <div class="container">
     <p class="title">Single Image Preview</p>
-    <hr />
-    <div class="large-12 medium-12 small-12 cell">
-      <label
-        >File Preview
-        <input
-          type="file"
-          id="file"
-          accept="image/*"
-          @change="handleFileUpload($event)"
-        />
-      </label>
-      <img v-bind:src="imagePreview" v-show="showPreview" />
-      <button v-on:click="submitFile()">Submit</button>
-    </div>
+    <label>
+      <input
+        type="file"
+        id="file"
+        accept="image/*"
+        @change="handleFileUpload($event)"
+      />
+    </label>
+    <img v-bind:src="imagePreview" v-show="showPreview" />
+    <button v-on:click="submitFile()">Submit</button>
   </div>
 </template>
 
