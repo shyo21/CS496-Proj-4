@@ -154,11 +154,19 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   components: {},
   beforeMount() {
     this.other1 = "키워드 1";
     this.other2 = "키워드 2";
+    //인자를 넣어줘야 합니다! (동적으로)
+    this.pStatus = "상태-" + "미개봉";
+  },
+  created() {
+    //인자를 넣어줘야 합니다! (동적으로)
+    this.postNLP(this.pStatus);
   },
   data() {
     return {
@@ -201,9 +209,34 @@ export default {
       message1: "",
       message4: "",
       message5: "",
+      nlpResult: null,
     };
   },
   methods: {
+    //NLP post 함수, 물품 상태 인자로 넣어주어야함 >> 새로고침 버튼 클릭 시 호출
+    postNLP: async function (productStatus) {
+      let nlpPostData = {
+        category_content_1: "내구성",
+        category_content_2: "디자인",
+        category_content_3: productStatus,
+      };
+
+      axios
+        .post("http://192.249.18.213:80/idea_generation/", nlpPostData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.nlpResult = response.data;
+          console.log("data========", this.nlpResult);
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+    },
+
     keywordHandler(event) {
       const targetId = event.currentTarget.id;
       this.isActive[targetId - 1] = !this.isActive[targetId - 1];
@@ -214,21 +247,21 @@ export default {
       switch (targetId) {
         case "내구성":
           this.toggleText1 = !this.toggleText1;
-          this.sentence1 = "내구성과 관련된";
-          this.sentence2 = "어썸한 문장이 이곳으로";
-          this.sentence3 = "들어오면 됩니다!";
+          this.sentence1 = this.nlpResult["내구성"][0];
+          this.sentence2 = this.nlpResult["내구성"][1];
+          this.sentence3 = this.nlpResult["내구성"][2];
           break;
         case "디자인":
           this.toggleText2 = !this.toggleText2;
-          this.sentence4 = "디자인과 관련된";
-          this.sentence5 = "어메이징한 문장이 이곳으로";
-          this.sentence6 = "들어오면 됩니다!!";
+          this.sentence4 = this.nlpResult["디자인"][0];
+          this.sentence5 = this.nlpResult["디자인"][1];
+          this.sentence6 = this.nlpResult["디자인"][2];
           break;
         case "상태":
           this.toggleText3 = !this.toggleText3;
-          this.sentence7 = "디자인과 관련된";
-          this.sentence8 = "어메이징한 문장이 이곳으로";
-          this.sentence9 = "들어오면 됩니다!!";
+          this.sentence7 = this.nlpResult[this.pStatus][0];
+          this.sentence8 = this.nlpResult[this.pStatus][1];
+          this.sentence9 = this.nlpResult[this.pStatus][2];
           break;
         case "alt1":
           this.toggleText4 = !this.toggleText4;

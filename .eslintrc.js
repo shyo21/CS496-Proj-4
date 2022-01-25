@@ -14,7 +14,9 @@ module.exports = {
     'no-debugger': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'vue/no-multiple-template-root': 'off',
-    'no-unused-vars': 'off'
+    'no-unused-vars': 'off',
+    'no-undef': 'off',
+    'no-redeclare': 'off'
   },
 
   'extends': [
