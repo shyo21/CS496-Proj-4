@@ -161,10 +161,9 @@ export default {
   beforeMount() {
     this.other1 = "키워드 1";
     this.other2 = "키워드 2";
-    //인자를 넣어줘야 합니다! (동적으로)
-    this.pStatus = "상태-" + "미개봉";
   },
   created() {
+    this.pStatus = "상태-" + "미개봉";
     //인자를 넣어줘야 합니다! (동적으로)
     this.postNLP(this.pStatus);
   },
@@ -214,11 +213,11 @@ export default {
   },
   methods: {
     //NLP post 함수, 물품 상태 인자로 넣어주어야함 >> 새로고침 버튼 클릭 시 호출
-    postNLP: async function (productStatus) {
-      let nlpPostData = {
-        category_content_1: "내구성",
-        category_content_2: "디자인",
-        category_content_3: productStatus,
+    postNLP: async function(productStatus){
+      var nlpPostData = {
+        'category_content_1': "내구성",
+        'category_content_2': "디자인",
+        'category_content_3': productStatus,
       };
 
       axios
@@ -234,7 +233,7 @@ export default {
         })
         .catch(function () {
           console.log("FAILURE!!");
-        });
+        });    
     },
 
     keywordHandler(event) {
