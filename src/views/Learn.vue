@@ -1,5 +1,15 @@
 <template>
   <div class="learn">
-    <h1>This is an learn page</h1>
+    <ScrollPageVue />
   </div>
 </template>
+
+<script>
+import ScrollPageVue from "../components/ScrollPage.vue";
+
+export default {
+  components: {
+    ScrollPageVue,
+  },
+};
+</script>
