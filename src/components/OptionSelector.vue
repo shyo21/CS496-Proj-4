@@ -213,11 +213,11 @@ export default {
   },
   methods: {
     //NLP post 함수, 물품 상태 인자로 넣어주어야함 >> 새로고침 버튼 클릭 시 호출
-    postNLP: async function(productStatus){
+    postNLP: async function (productStatus) {
       var nlpPostData = {
-        'category_content_1': "내구성",
-        'category_content_2': "디자인",
-        'category_content_3': productStatus,
+        category_content_1: "내구성",
+        category_content_2: "디자인",
+        category_content_3: productStatus,
       };
 
       axios
@@ -233,7 +233,7 @@ export default {
         })
         .catch(function () {
           console.log("FAILURE!!");
-        });    
+        });
     },
 
     keywordHandler(event) {
