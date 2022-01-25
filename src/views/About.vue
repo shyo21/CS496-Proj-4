@@ -20,16 +20,12 @@
                     d="M14,17H7v-2h7V17z M17,13H7v-2h10V13z M17,9H7V7h10V9z"
                   />
                 </svg>
-                <div
-                  class="name"
-                  v-for="(category, index) in categories"
-                  :key="index"
-                >
-                  {{ category.text }}
+                <div class="name">
+                  {{ categories[index].text }}
                 </div>
               </div>
-              <div class="title" v-for="(price, index) in prices" :key="index">
-                {{ price.number }}
+              <div class="title">
+                {{ prices[index].number }}
               </div>
             </div>
           </div>
@@ -62,8 +58,28 @@ export default {
         { url: require("../imgs/cities/Oxford.jpg"), alt: "img-8" },
         { url: require("../imgs/cities/Paris.jpg"), alt: "img-9" },
       ],
-      categories: [{ text: "car", alt: "category-1" }],
-      prices: [{ number: 500000, alt: "price-1" }],
+      categories: [
+        { text: "car", alt: "category-1" },
+        { text: "laptop", alt: "category-2" },
+        { text: "laptop", alt: "category-3" },
+        { text: "laptop", alt: "category-4" },
+        { text: "laptop", alt: "category-5" },
+        { text: "laptop", alt: "category-6" },
+        { text: "laptop", alt: "category-7" },
+        { text: "laptop", alt: "category-8" },
+        { text: "laptop", alt: "category-9" },
+      ],
+      prices: [
+        { number: 500000, alt: "price-1" },
+        { number: 8000000, alt: "price-1" },
+        { number: 8000000, alt: "price-1" },
+        { number: 8000000, alt: "price-1" },
+        { number: 8000000, alt: "price-1" },
+        { number: 8000000, alt: "price-1" },
+        { number: 8000000, alt: "price-1" },
+        { number: 8000000, alt: "price-1" },
+        { number: 8000000, alt: "price-1" },
+      ],
     };
   },
   methods: {
