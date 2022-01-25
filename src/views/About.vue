@@ -6,7 +6,7 @@
     </div>
 
     <vue-horizontal class="horizontal">
-      <div class="item" v-for="(img, index) in items" :key="index">
+      <div class="item" v-for="(img, index) in imgs" :key="index">
         <div class="card">
           <img class="image" :src="img.url" :alt="img.alt" />
           <div class="content">
@@ -20,13 +20,18 @@
                     d="M14,17H7v-2h7V17z M17,13H7v-2h10V13z M17,9H7V7h10V9z"
                   />
                 </svg>
-                <div class="name">samplename1</div>
+                <div
+                  class="name"
+                  v-for="(category, index) in categories"
+                  :key="index"
+                >
+                  {{ category.text }}
+                </div>
               </div>
-
-              <div class="title">samplename22</div>
+              <div class="title" v-for="(price, index) in prices" :key="index">
+                {{ price.number }}
+              </div>
             </div>
-
-            <div class="date">1 week ago</div>
           </div>
         </div>
       </div>
@@ -46,7 +51,7 @@ export default {
   data() {
     return {
       productInfo: null,
-      items: [
+      imgs: [
         { url: require("../imgs/cities/athens.jpg"), alt: "img-1" },
         { url: require("../imgs/cities/barcelona 1.jpg"), alt: "img-2" },
         { url: require("../imgs/cities/barcelona 2.jpg"), alt: "img-3" },
@@ -57,6 +62,8 @@ export default {
         { url: require("../imgs/cities/Oxford.jpg"), alt: "img-8" },
         { url: require("../imgs/cities/Paris.jpg"), alt: "img-9" },
       ],
+      categories: [{ text: "car", alt: "category-1" }],
+      prices: [{ number: 500000, alt: "price-1" }],
     };
   },
   methods: {
