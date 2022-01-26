@@ -153,18 +153,15 @@ input {
         </div>
       </div>
       <div>
-        <button
-          class="submitButton"
-          v-on:click="submitFile()"
-          :disabled="isLoad"
-        >
+        <button class="submitButton" v-on:click="submitFile" :disabled="isLoad">
           <span>Submit</span>
         </button>
         <br />
         <br />
         <button
+          id="car"
           class="submitButton"
-          v-on:click="postClicked()"
+          v-on:click="postClicked"
           :disabled="isLoad"
         >
           <span>Car</span>
@@ -172,8 +169,9 @@ input {
         <br />
         <br />
         <button
+          id="laptop"
           class="submitButton"
-          v-on:click="postClicked()"
+          v-on:click="postClicked"
           :disabled="isLoad"
         >
           <span>laptop</span>
@@ -181,8 +179,9 @@ input {
         <br />
         <br />
         <button
+          id="backpack"
           class="submitButton"
-          v-on:click="postClicked()"
+          v-on:click="postClicked"
           :disabled="isLoad"
         >
           <span>backpack</span>
@@ -216,7 +215,10 @@ export default {
   },
 
   methods: {
-    postClicked() {},
+    postClicked(event) {
+      const clickedId = event.currentTarget.id;
+      console.log(clickedId);
+    },
 
     scrollTo() {
       window.scrollTo({ top: 1000, behavior: "smooth" });

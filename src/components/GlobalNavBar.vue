@@ -6,13 +6,13 @@
           ><i class="fab fa-apple"></i
         ></router-link>
       </li>
-      <li><router-link class="rl" to="/About">Mac</router-link></li>
-      <li><router-link class="rl" to="/Learn">iPad</router-link></li>
-      <li><router-link class="rl" to="/ImageSubmit">iPhone</router-link></li>
-      <li><router-link class="rl" to="/MakeArticle">Watch</router-link></li>
-      <li><router-link class="rl" to="/MultiImg">TV</router-link></li>
+      <li><router-link class="rl" to="/ImageSubmit">Mac</router-link></li>
+      <li><router-link class="rl" to="/MakeArticle">iPad</router-link></li>
+      <li><router-link class="rl" to="/MultiImg">iPhone</router-link></li>
+      <li><router-link class="rl" to="/Test">Watch</router-link></li>
+      <li><router-link class="rl" to="/Test">TV</router-link></li>
       <li><router-link class="rl" to="/Test">Music</router-link></li>
-      <li><router-link class="rl" to="/About">Service</router-link></li>
+      <li><router-link class="rl" to="/Test">Service</router-link></li>
       <li>
         <router-link class="rl" to="/Learn"
           ><i class="fal fa-search"></i

@@ -21,8 +21,8 @@ export default {
   name: "Home",
   components: {
     MainPage,
-    Footer,
     AboutVue,
+    Footer,
   },
 };
 </script>
