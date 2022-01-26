@@ -11,7 +11,7 @@
             id="1"
             :style="{ background: isActive[0] ? '#616161' : '' }"
             :disabled="isActive[1] || isActive[2]"
-            @click="keywordHandler"
+            @click="keywordHandler_1"
           >
             {{ sentence1 }}
           </button>
@@ -20,7 +20,7 @@
             id="2"
             :style="{ background: isActive[1] ? '#616161' : '' }"
             :disabled="isActive[0] || isActive[2]"
-            @click="keywordHandler"
+            @click="keywordHandler_1"
           >
             {{ sentence2 }}
           </button>
@@ -29,7 +29,7 @@
             id="3"
             :style="{ background: isActive[2] ? '#616161' : '' }"
             :disabled="isActive[1] || isActive[0]"
-            @click="keywordHandler"
+            @click="keywordHandler_1"
           >
             {{ sentence3 }}
           </button>
@@ -55,7 +55,7 @@
             id="4"
             :style="{ background: isActive[3] ? '#616161' : '' }"
             :disabled="isActive[4] || isActive[5]"
-            @click="keywordHandler"
+            @click="keywordHandler_2"
           >
             {{ sentence4 }}
           </button>
@@ -64,7 +64,7 @@
             id="5"
             :style="{ background: isActive[4] ? '#616161' : '' }"
             :disabled="isActive[3] || isActive[5]"
-            @click="keywordHandler"
+            @click="keywordHandler_2"
           >
             {{ sentence5 }}
           </button>
@@ -73,7 +73,7 @@
             id="6"
             :style="{ background: isActive[5] ? '#616161' : '' }"
             :disabled="isActive[3] || isActive[4]"
-            @click="keywordHandler"
+            @click="keywordHandler_2"
           >
             {{ sentence6 }}
           </button>
@@ -99,7 +99,7 @@
             id="7"
             :style="{ background: isActive[6] ? '#616161' : '' }"
             :disabled="isActive[7] || isActive[8]"
-            @click="keywordHandler"
+            @click="keywordHandler_3"
           >
             {{ sentence7 }}
           </button>
@@ -108,7 +108,7 @@
             id="8"
             :style="{ background: isActive[7] ? '#616161' : '' }"
             :disabled="isActive[6] || isActive[8]"
-            @click="keywordHandler"
+            @click="keywordHandler_3"
           >
             {{ sentence8 }}
           </button>
@@ -117,7 +117,7 @@
             id="9"
             :style="{ background: isActive[8] ? '#616161' : '' }"
             :disabled="isActive[6] || isActive[7]"
-            @click="keywordHandler"
+            @click="keywordHandler_3"
           >
             {{ sentence9 }}
           </button>
@@ -147,6 +147,7 @@
 
 <script>
 import axios from "axios";
+import VueCookies from "vue-cookies";
 
 export default {
   created() {
@@ -156,6 +157,10 @@ export default {
   },
   data() {
     return {
+      keyword1: null,
+      keyword2: null,
+      keyword3: null,
+      productResult: null,
       isActive1: false,
       isActive2: false,
       isActive3: false,
@@ -224,10 +229,28 @@ export default {
         });
     },
 
-    keywordHandler(event) {
+    keywordHandler_1(event) {
       //숫자로 된 키워드 id (1~9의 값 가짐)
       const targetId = event.currentTarget.id;
       this.isActive[targetId - 1] = !this.isActive[targetId - 1];
+      console.log("keyword", targetId);
+      this.keyword1 = targetId;
+    },
+
+    keywordHandler_2(event) {
+      //숫자로 된 키워드 id (1~9의 값 가짐)
+      const targetId = event.currentTarget.id;
+      this.isActive[targetId - 1] = !this.isActive[targetId - 1];
+      console.log("keyword", targetId);
+      this.keyword2 = targetId;
+    },
+
+    keywordHandler_3(event) {
+      //숫자로 된 키워드 id (1~9의 값 가짐)
+      const targetId = event.currentTarget.id;
+      this.isActive[targetId - 1] = !this.isActive[targetId - 1];
+      console.log("keyword", targetId);
+      this.keyword3 = targetId;
     },
 
     keywordMenuHandler(event) {
@@ -252,6 +275,71 @@ export default {
           this.sentence9 = this.nlpResult[this.pStatus][2];
           break;
       }
+    },
+
+    basicSubmit(event) {
+      var di1 = null;
+      var di2 = null;
+      var di3 = null;
+      if (this.keyword1 == 1) {
+        di1 = this.sentence1;
+      } else if (this.keyword1 == 2) {
+        di1 = this.sentence2;
+      } else if (this.keyword1 == 3) {
+        di1 = this.sentence3;
+      }
+
+      var dd1 = this.message1;
+
+      if (this.keyword2 == 4) {
+        di2 = this.sentence4;
+      } else if (this.keyword2 == 5) {
+        di2 = this.sentence5;
+      } else if (this.keyword2 == 6) {
+        di2 = this.sentence6;
+      }
+      var dd2 = this.message2;
+
+      if (this.keyword3 == 7) {
+        di3 = this.sentence7;
+      } else if (this.keyword3 == 8) {
+        di3 = this.sentence8;
+      } else if (this.keyword3 == 9) {
+        di3 = this.sentence9;
+      }
+      var dd3 = this.message3;
+
+      var productPostData = {
+        uid: VueCookies.get("uid"),
+        price: 1,
+        product_type: VueCookies.get("product-type"),
+        images_dir: "",
+        completion: 0,
+        des_idea_1: di1,
+        des_detail_1: dd1,
+        des_idea_2: di2,
+        des_detail_2: dd2,
+        des_idea_3: di3,
+        des_detail_3: dd3,
+      };
+
+      console.log("uid >> ", productPostData.uid);
+      axios
+        .post("http://54.180.160.3:8080/product/create", productPostData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.productResult = response.data.data;
+          console.log("data========", this.productResult);
+          VueCookies.set("user-pid", this.productResult["pid"]);
+          console.log("pid>>>", VueCookies.get("user-pid"));
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
     },
   },
 };
