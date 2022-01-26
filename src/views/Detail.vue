@@ -1,38 +1,37 @@
 <template>
-  <main>
-    <div class="header">
-      <h3>Top Stories</h3>
-      <p>Responsive sizing, relative to the viewport.</p>
-    </div>
-    <!-- <img id="sample" :src="this.test" :alt="dd" /> -->
-    <vue-horizontal class="horizontal">
-      <div class="item" v-for="(img, index) in imgs" :key="index">
-        <div class="card" :id="img.alt" @click="itemClickHandler">
-          <img class="image" :src="img.url" :alt="img.alt" />
-          <div class="content">
-            <div>
-              <div class="brand">
-                <svg class="icon" viewBox="0 0 24 24">
-                  <path
-                    d="M19,5v14H5V5H19 M19,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3L19,3z"
-                  />
-                  <path
-                    d="M14,17H7v-2h7V17z M17,13H7v-2h10V13z M17,9H7V7h10V9z"
-                  />
-                </svg>
-                <div class="name">
-                  {{ categories[index].text }}
-                </div>
-              </div>
-              <div class="title">
-                {{ prices[index].number }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </vue-horizontal>
-  </main>
+  <div class="imgItem" v-for="(img, index) in imgs" :key="index">
+    <img class="image" :src="img.url" :alt="img.alt" />
+  </div>
+  <div class="idea_1">
+    {{ this.productDetail["des_idea_1"] }}
+  </div>
+  <div class="idea_2">
+    {{ this.productDetail["des_idea_2"] }}
+  </div>
+  <div class="idea_3">
+    {{ this.productDetail["des_idea_3"] }}
+  </div>
+  <div class="detail_1">
+    {{ this.productDetail["des_detail_1"] }}
+  </div>
+  <div class="detail_2">
+    {{ this.productDetail["des_detail_2"] }}
+  </div>
+  <div class="detail_3">
+    {{ this.productDetail["des_detail_3"] }}
+  </div>
+  <div class="detail_1">
+    {{ this.productDetail["des_detail_1"] }}
+  </div>
+  <div class="price">
+    {{ this.productDetail["price"] }}
+  </div>
+  <div class="type">
+    {{ this.productDetail["product_type"] }}
+  </div>
+  <div class="buy">
+    <button class="mainbutton" id="내구성" @click="buyHandler"></button>
+  </div>
 </template>
 
 <script>
@@ -41,7 +40,7 @@ import axios from "axios";
 import VueCookies from "vue-cookies";
 
 export default {
-  components: { VueHorizontal },
+  components: {},
   created() {
     this.pid = VueCookies.get("cur_pid");
     this.getDetail(this.pid);
@@ -50,18 +49,20 @@ export default {
     return {
       pid: null,
       productDetail: null,
-      test: null,
-      isLoading: true,
       imgFile: null,
       imgs: [],
-      categories: [],
-      prices: [],
+      category: null,
+      prices: null,
     };
   },
   methods: {
     getDetail: async function () {
       await axios
-        .get("http://54.180.160.3:8080/product/confirm")
+        .get("http://54.180.160.3:8080/product/confirm", {
+          params: {
+            pid: this.pid,
+          },
+        })
         .then((response) => {
           console.log(response);
           this.productDetail = response.data.data;
@@ -70,15 +71,12 @@ export default {
         .catch(function () {
           console.log("getProducts Failed");
         });
-      console.log(this.productDetail.length);
-      //   console.log(this.productDetail[0]["pid"]);
-      //   for (let i = 0; i < this.productInfo.length; i++) {
-      //     this.setData(i);
-      //     this.getImg(this.productInfo[i]["pid"]);
-      //   }
+      this.getImg0(this.pid);
+      this.getImg1(this.pid);
+      this.getImg2(this.pid);
     },
 
-    getImg: async function (pid) {
+    getImg0: async function (pid) {
       let formData = new FormData();
       formData.append("pid", pid);
 
@@ -87,9 +85,6 @@ export default {
         .then((response) => {
           console.log(response);
           this.imgFile = response.data;
-          // var a = document.getElementById("sample");
-          // a.src = "data:image/;base64," + this.imgFile;
-          // this.test = "data:image/;base64," + this.imgFile;
           console.log(this.imgFile);
         })
         .catch(function () {
@@ -98,37 +93,54 @@ export default {
 
       var imgJson = {};
       imgJson.url = "data:image/;base64," + this.imgFile;
-      imgJson.alt = pid;
+      imgJson.alt = pid + "_0";
       this.imgs.push({ ...imgJson });
     },
 
-    setData: function (i) {
-      // for (let i = 0; i < this.productInfo.length; i++) {
-      var categoriesJson = {};
-      var pricesJson = {};
-      var cur_pid = this.productInfo[i]["pid"];
+    getImg1: async function (pid) {
+      let formData = new FormData();
+      formData.append("pid", pid);
 
-      // var imgJson = {};
-      // this.getImg(cur_pid);
-      // imgJson.url = "data:image/;base64," + this.imgFile;
-      // imgJson.alt = "img-" + cur_pid;
-      // this.imgs.push({ ...imgJson });
+      await axios
+        .post("http://192.249.18.199:80/call_img_1", formData)
+        .then((response) => {
+          console.log(response);
+          this.imgFile = response.data;
+          console.log(this.imgFile);
+        })
+        .catch(function () {
+          console.log("getImg Failed");
+        });
 
-      categoriesJson.text = this.productInfo[i]["product_type"];
-      categoriesJson.alt = "type-" + cur_pid;
-
-      pricesJson.text = this.productInfo[i]["price"].toString();
-      pricesJson.alt = "price-" + cur_pid;
-
-      this.categories.push({ ...categoriesJson });
-      this.prices.push({ ...pricesJson });
-      // }
+      var imgJson = {};
+      imgJson.url = "data:image/;base64," + this.imgFile;
+      imgJson.alt = pid + "_1";
+      this.imgs.push({ ...imgJson });
     },
 
-    itemClickHandler(event) {
-      const targetId = event.currentTarget.id;
-      console.log(targetId);
-      VueCookies.set("cur_pid", targetId);
+    getImg2: async function (pid) {
+      let formData = new FormData();
+      formData.append("pid", pid);
+
+      await axios
+        .post("http://192.249.18.199:80/call_img_2", formData)
+        .then((response) => {
+          console.log(response);
+          this.imgFile = response.data;
+          console.log(this.imgFile);
+        })
+        .catch(function () {
+          console.log("getImg Failed");
+        });
+
+      var imgJson = {};
+      imgJson.url = "data:image/;base64," + this.imgFile;
+      imgJson.alt = pid + "_2";
+      this.imgs.push({ ...imgJson });
+    },
+
+    buyHandler(event) {
+      VueCookies.set("buyer_uid", this.productDetail["uid"]);
       //router 지정
       this.$router.push("/");
     },
