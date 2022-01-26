@@ -1,12 +1,16 @@
 <template>
   <div class="priceinnerCont">
     <div class="priceTitle">Money Money Money</div>
-    <input class="inputPrice" v-model="message" placeholder="how much?" />
+    <input class="inputPrice" v-model="price" placeholder="how much?" />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return { price: "" };
+  },
+};
 </script>
 
 <style scoped>
