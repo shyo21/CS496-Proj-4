@@ -1,5 +1,16 @@
+<style scoped>
+.dtCont {
+  font-family: "Apple SD Gothic Neo", Roboto, "Noto Sans KR", NanumGothic,
+    "Malgun Gothic", sans-serif;
+}
+.title {
+  font-size: 100px;
+  font-weight: 800;
+}
+</style>
+
 <template>
-  <div>
+  <div class="dtCont">
     <br /><br /><br /><br /><br />
     <p class="title">User Page</p>
     <div>
