@@ -1,16 +1,19 @@
 <style scoped>
-.imagescontainer {
-  display: block;
+.inputsCont {
+  display: flex;
+  width: 1500px;
+  margin-top: 30px;
+  margin-left: 380px;
+  font-family: "Apple SD Gothic Neo", Roboto, "Noto Sans KR", NanumGothic,
+    "Malgun Gothic", sans-serif;
 }
 .imagescontainer img {
   max-width: 200px;
   max-height: 200px;
   display: block;
-  margin: auto;
+  margin: 0 0;
   margin-top: 20px;
   margin-bottom: 20px;
-}
-.inputsCont {
 }
 .title {
   text-align: center;
@@ -19,7 +22,7 @@
   font-weight: 700;
   font-family: "Apple SD Gothic Neo", Roboto, "Noto Sans KR", NanumGothic,
     "Malgun Gothic", sans-serif;
-  margin-top: 3rem;
+  margin-top: 7rem;
   margin-bottom: 2rem;
 }
 .submitCont {
@@ -97,44 +100,47 @@
 
 <template>
   <div class="imagescontainer">
-    <p class="title">3,2,1 Cheeze~</p>
+    <p class="title">Photos?</p>
     <hr />
     <div class="inputsCont">
-      <label>
-        File Preview
-        <input
-          type="file"
-          id="img_0"
-          accept="image/*"
-          @change="handleFileUpload_0($event)"
-        />
-      </label>
-      <label>
-        File Preview
-        <input
-          type="file"
-          id="img_1"
-          accept="image/*"
-          @change="handleFileUpload_1($event)"
-        />
-      </label>
-      <label>
-        File Preview
-        <input
-          type="file"
-          id="img_2"
-          accept="image/*"
-          @change="handleFileUpload_2($event)"
-        />
-      </label>
-      <img v-bind:src="imagePreview_0" v-show="showPreview_0" />
-      <img v-bind:src="imagePreview_1" v-show="showPreview_1" />
-      <img v-bind:src="imagePreview_2" v-show="showPreview_2" />
-      <div class="submitCont">
-        <button class="nextButton" @click="submitFile">
-          <span>Submit</span>
-        </button>
+      <div class="img0input">
+        <label>
+          <input
+            type="file"
+            id="img_0"
+            accept="image/*"
+            @change="handleFileUpload_0($event)"
+          />
+        </label>
+        <img v-bind:src="imagePreview_0" v-show="showPreview_0" />
       </div>
+      <div class="img1input">
+        <label>
+          <input
+            type="file"
+            id="img_1"
+            accept="image/*"
+            @change="handleFileUpload_1($event)"
+          />
+        </label>
+        <img v-bind:src="imagePreview_1" v-show="showPreview_1" />
+      </div>
+      <div class="img2input">
+        <label>
+          <input
+            type="file"
+            id="img_2"
+            accept="image/*"
+            @change="handleFileUpload_2($event)"
+          />
+        </label>
+        <img v-bind:src="imagePreview_2" v-show="showPreview_2" />
+      </div>
+    </div>
+    <div class="submitCont">
+      <button class="nextButton" @click="submitFile">
+        <span>Submit</span>
+      </button>
     </div>
   </div>
 </template>
