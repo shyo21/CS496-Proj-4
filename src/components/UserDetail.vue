@@ -3,7 +3,9 @@
     <br /><br /><br /><br /><br />
     <p class="title">User Page</p>
     <div>
-      <span>User Points</span>
+      <span id="uname">User Name: </span><br />
+      <span id="upoint">User Points: </span><br />
+      <button @click="charge()">😄첫 충전 시 10만원 지급!😄</button>
     </div>
     <div id="user-register">
       <span>Registered</span>
@@ -20,6 +22,7 @@ import VueCookies from "vue-cookies";
 export default {
   created() {
     this.getProductList();
+    this.getUserInfo();
   },
   data() {
     return {
@@ -29,6 +32,27 @@ export default {
   methods: {
     clicker() {
       console.log("hi");
+    },
+    charge() {
+      this.$router.push("/Charge");
+    },
+    async getUserInfo() {
+      axios
+        .get("http://54.180.160.3:8080/user/read", {
+          headers: {
+            Authorization: "Bearer " + VueCookies.get("accessToken"),
+          },
+        })
+        .then((res) => {
+          var data = res["data"];
+          return data["data"];
+        })
+        .then((data) => {
+          document.getElementById("uname").textContent =
+            "User Name: " + data["user_name"];
+          document.getElementById("upoint").textContent =
+            "User Points: " + data["points"];
+        });
     },
     async getProductList() {
       var myToken = VueCookies.get("accessToken");
@@ -145,6 +169,30 @@ export default {
               comp["seller"] +
               "가격:    " +
               comp["bill"];
+            child.onclick = function () {
+              alert("거래 완료를 신청합니다.");
+              axios
+                .get(
+                  "http://54.180.160.3:8080/transaction/accept?tid=" +
+                    this.getAttribute("tid"),
+                  {
+                    headers: {
+                      Authorization: "Bearer " + VueCookies.get("accessToken"),
+                    },
+                  }
+                )
+                .then((res) => {
+                  var data = res["data"];
+                  return data["data"];
+                })
+                .then((data) => {
+                  if (data["completion"] == 1) {
+                    alert(
+                      "거래가 성립되었습니다. 판매자에겐 포인트가 지급됩니다."
+                    );
+                  }
+                });
+            };
             root.appendChild(child);
           }
         });
