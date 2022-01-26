@@ -1,15 +1,26 @@
 <template>
-  <div class="learn">
-    <ScrollPageVue />
+  <div v-if="temp" class="learn">
+    <Signin />
+  </div>
+  <div v-else class="learn">
+    <UserDetail />
   </div>
 </template>
 
 <script>
-import ScrollPageVue from "../components/ScrollPage.vue";
+import Signin from "../components/Signin.vue";
+import VueCookies from "vue-cookies";
+import UserDetail from "../components/UserDetail.vue";
 
 export default {
-  components: {
-    ScrollPageVue,
+  created() {
+    let l = VueCookies.get("uid");
+    this.temp = l == null;
   },
+  components: {
+    Signin,
+    UserDetail,
+  },
+  methods: {},
 };
 </script>

@@ -2,19 +2,30 @@
   <div>
     <br /><br /><br /><br /><br />
     <p class="title">첫충전시10만원무료지급</p>
+    <input
+      type="number"
+      @change="onchange($event)"
+      placeholder="금액을 입력해주세요"
+    /><br />
     <button @click="bill()">충전 ㄱ?</button>
   </div>
 </template>
 <script>
+import VueCookies from "vue-cookies";
+import Learn from "../views/Learn.vue";
+let amount = 0;
 export default {
   data() {
     return {};
   },
   methods: {
+    onchange(event) {
+      amount = event.target.value;
+    },
     bill() {
       var IMP = window.IMP;
       IMP.init("imp49785554");
-      var money = 10000;
+      var money = amount;
       IMP.request_pay(
         {
           pg: "kakao",
@@ -30,7 +41,6 @@ export default {
         function (rsp) {
           console.log(rsp);
           if (rsp.success) {
-            alert("오");
             var msg = "결제가 완료되었습니다.";
             msg += "고유ID : " + rsp.imp_uid;
             msg += "상점 거래ID : " + rsp.merchant_uid;
@@ -41,11 +51,12 @@ export default {
               url: "http://54.180.160.3:8080/user/confirm-payments", //충전 금액값을 보낼 url 설정
               data: {
                 imp_uid: rsp.imp_uid,
-                uid: "hell11o@gmail.com", //uid 쿠키에 저장 필요함!
+                uid: VueCookies.get("uid"), //uid 쿠키에 저장 필요함!
                 value: money,
               },
             }).then((res) => {
               console.log(res);
+              this.$router.push("/Learn");
             });
           } else {
             var msg = "결제에 실패하였습니다.";
