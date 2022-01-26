@@ -21,7 +21,8 @@
                   />
                 </svg>
                 <div class="name">
-                  {{ categories[index].text }}
+                  <!-- {{ categories[index].text }} -->
+                  {{ "On Sale" }}
                 </div>
               </div>
               <div class="title">
@@ -71,13 +72,13 @@ export default {
       console.log(this.productInfo.length);
       console.log(this.productInfo[0]["pid"]);
       for (let i = 0; i < this.productInfo.length; i++) {
-        this.getImg(this.productInfo[i]["pid"]);
+        this.getImg(this.productInfo[i]["pid"], i);
       }
-      for (let i = 0; i < this.productInfo.length; i++) {
-        this.setData(i);
-      }
+      // for (let i = 0; i < this.productInfo.length; i++) {
+      //   this.setData(i);
+      // }
     },
-    getImg: async function (pid) {
+    getImg: async function (pid, i) {
       let formData = new FormData();
       formData.append("pid", pid);
       await axios
@@ -90,6 +91,7 @@ export default {
           // this.test = "data:image/;base64," + this.imgFile;
           console.log(this.imgFile);
         })
+        .then(this.setData(i))
         .catch(function () {
           console.log("getImg Failed");
         });
@@ -99,15 +101,9 @@ export default {
       this.imgs.push({ ...imgJson });
     },
     setData: function (i) {
-      // for (let i = 0; i < this.productInfo.length; i++) {
       var categoriesJson = {};
       var pricesJson = {};
       var cur_pid = this.productInfo[i]["pid"];
-      // var imgJson = {};
-      // this.getImg(cur_pid);
-      // imgJson.url = "data:image/;base64," + this.imgFile;
-      // imgJson.alt = "img-" + cur_pid;
-      // this.imgs.push({ ...imgJson });
       categoriesJson.text = this.productInfo[i]["product_type"];
       categoriesJson.alt = "type-" + cur_pid;
       pricesJson.text = this.productInfo[i]["price"].toString();
