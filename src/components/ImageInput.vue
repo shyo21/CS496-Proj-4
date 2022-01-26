@@ -267,6 +267,7 @@ input {
 
 <script>
 import axios from "axios";
+import VueCookies from "vue-cookies";
 
 export default {
   data() {
@@ -292,6 +293,7 @@ export default {
     postClicked(event) {
       const clickedId = event.currentTarget.id;
       console.log(clickedId);
+      VueCookies.set("product-type", clickedId);
     },
 
     scrollTo() {
