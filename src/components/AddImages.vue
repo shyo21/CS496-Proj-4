@@ -161,7 +161,7 @@ export default {
       file_2: "",
       showPreview_2: false,
       imagePreview_2: "",
-      pid: VueCookies.get("user-pid"),
+      pid: Number(VueCookies.get("user-pid")) + 1,
     };
   },
 
@@ -185,6 +185,7 @@ export default {
         .catch(function () {
           console.log("FAILURE!!");
         });
+      this.$router.push("/");
     },
 
     handleFileUpload_0(event) {

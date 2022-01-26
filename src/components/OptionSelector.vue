@@ -340,6 +340,7 @@ export default {
         .catch(function () {
           console.log("FAILURE!!");
         });
+      this.$router.push("/MultiImg");
     },
   },
 };
