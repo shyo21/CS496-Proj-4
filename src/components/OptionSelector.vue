@@ -151,7 +151,7 @@ import VueCookies from "vue-cookies";
 
 export default {
   created() {
-    this.pStatus = "상태-" + "미개봉";
+    this.pStatus = "상태-" + VueCookies.get("user-proStatus");
     //인자를 넣어줘야 합니다! (동적으로)
     this.postNLP(this.pStatus);
   },
@@ -311,7 +311,7 @@ export default {
 
       var productPostData = {
         uid: VueCookies.get("uid"),
-        price: 1,
+        price: VueCookies.get("user-price"),
         product_type: VueCookies.get("product-type"),
         images_dir: "",
         completion: 0,
