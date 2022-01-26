@@ -20,9 +20,6 @@
   <div class="detail_3">
     {{ this.productDetail["des_detail_3"] }}
   </div>
-  <div class="detail_1">
-    {{ this.productDetail["des_detail_1"] }}
-  </div>
   <div class="price">
     {{ this.productDetail["price"] }}
   </div>
