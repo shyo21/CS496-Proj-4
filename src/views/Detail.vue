@@ -2,41 +2,54 @@
   <!-- <div class="imgItem" v-for="(img, index) in imgs" :key="index">
     <img class="image" :src="img.url" :alt="img.alt" />
   </div> -->
-  <div class="img_0">
-    <img :src="this.img_0" alt="img_0" />
-  </div>
-  <div class="img_1">
-    <img :src="this.img_1" alt="img_1" />
-  </div>
-  <div class="img_2">
-    <img :src="this.img_2" alt="img_2" />
-  </div>
-  <div class="idea_1">
-    {{ this.productDetail["des_idea_1"] }}
-  </div>
-  <div class="idea_2">
-    {{ this.productDetail["des_idea_2"] }}
-  </div>
-  <div class="idea_3">
-    {{ this.productDetail["des_idea_3"] }}
-  </div>
-  <div class="detail_1">
-    {{ this.productDetail["des_detail_1"] }}
-  </div>
-  <div class="detail_2">
-    {{ this.productDetail["des_detail_2"] }}
-  </div>
-  <div class="detail_3">
-    {{ this.productDetail["des_detail_3"] }}
-  </div>
-  <div class="price">
-    {{ this.productDetail["price"] }}
-  </div>
-  <div class="type">
-    {{ this.productDetail["product_type"] }}
-  </div>
-  <div class="buy">
-    <button class="mainbutton" id="내구성" @click="buyHandler"></button>
+  <div class="templateCont">
+    <div class="contImg0">
+      <div class="img_0">
+        <img :src="this.img_0" alt="img_0" />
+      </div>
+      <div class="idea_1">
+        {{ this.productDetail["des_idea_1"] }}
+      </div>
+      <div class="detail_1">
+        {{ this.productDetail["des_detail_1"] }}
+      </div>
+    </div>
+
+    <div class="contImg1">
+      <div class="img_1">
+        <img :src="this.img_1" alt="img_1" />
+      </div>
+      <div class="idea_2">
+        {{ this.productDetail["des_idea_2"] }}
+      </div>
+      <div class="detail_2">
+        {{ this.productDetail["des_detail_2"] }}
+      </div>
+    </div>
+
+    <div class="contImg2">
+      <div class="img_2">
+        <img :src="this.img_2" alt="img_2" />
+      </div>
+      <div class="idea_3">
+        {{ this.productDetail["des_idea_3"] }}
+      </div>
+      <div class="detail_3">
+        {{ this.productDetail["des_detail_3"] }}
+      </div>
+    </div>
+
+    <div class="price">
+      {{ this.productDetail["price"] }}
+    </div>
+    <div class="type">
+      {{ this.productDetail["product_type"] }}
+    </div>
+    <div class="submitCont">
+      <button class="nextButton" @click="buyHandler">
+        <span>Buy</span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -162,8 +175,123 @@ export default {
 
 <!-- Content Design -->
 <style scoped>
-.templateContainer {
+.templateCont {
   font-family: "Apple SD Gothic Neo", Roboto, "Noto Sans KR", NanumGothic,
     "Malgun Gothic", sans-serif;
+}
+.idea_1 {
+  font-size: 100px;
+  font-weight: 800;
+  margin-top: 200px;
+}
+.idea_2 {
+  font-size: 100px;
+  font-weight: 800;
+  margin-top: 200px;
+}
+.idea_3 {
+  font-size: 100px;
+  font-weight: 800;
+  margin-top: 200px;
+}
+.detail_1 {
+  font-size: 50px;
+  font-weight: 500;
+
+  margin-bottom: 200px;
+}
+.detail_2 {
+  font-size: 50px;
+  font-weight: 500;
+
+  margin-bottom: 200px;
+}
+.detail_3 {
+  font-size: 50px;
+  font-weight: 500;
+
+  margin-bottom: 200px;
+}
+
+.price {
+  font-size: 50px;
+  font-weight: 500;
+  margin-bottom: 200px;
+}
+.type {
+  font-size: 50px;
+  font-weight: 500;
+  margin-bottom: 200px;
+}
+
+.submitCont {
+  margin-bottom: 100px;
+  margin-left: 1200px;
+}
+.nextButton {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background: #ff5c5c;
+  color: #ffffff;
+
+  margin: 0 50px 0 0;
+  padding: 0.7rem 5rem;
+  height: auto;
+
+  font-size: 3rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+
+  border: none;
+  border-radius: 20px;
+
+  display: inline-block;
+  flex-basis: 10rem;
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  cursor: pointer;
+
+  transition: 0.5s;
+}
+.nextButton:active,
+.nextButton:hover {
+  background: #ff7a7a;
+  outline: 0;
+  flex-basis: 11rem;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.nextButton:disabled {
+  opacity: 0.5;
+}
+.nextButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  color: #ffffff;
+}
+
+.nextButton span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.nextButton:hover span {
+  padding-right: 25px;
+}
+
+.nextButton:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 </style>
