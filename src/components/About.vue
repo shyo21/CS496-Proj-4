@@ -39,12 +39,10 @@
 import VueHorizontal from "vue-horizontal";
 import axios from "axios";
 import VueCookies from "vue-cookies";
-
 export default {
   components: { VueHorizontal },
   created() {
-    this.pid = VueCookies.get("cur_pid");
-    this.getDetail();
+    this.getProducts();
   },
   data() {
     return {
@@ -59,7 +57,7 @@ export default {
     };
   },
   methods: {
-    getDetail: async function () {
+    getProducts: async function () {
       await axios
         .get("http://54.180.160.3:8080/product/load")
         .then((response) => {
@@ -77,11 +75,9 @@ export default {
         this.getImg(this.productInfo[i]["pid"]);
       }
     },
-
     getImg: async function (pid) {
       let formData = new FormData();
       formData.append("pid", pid);
-
       await axios
         .post("http://192.249.18.199:80/call_img_0", formData)
         .then((response) => {
@@ -95,36 +91,29 @@ export default {
         .catch(function () {
           console.log("getImg Failed");
         });
-
       var imgJson = {};
       imgJson.url = "data:image/;base64," + this.imgFile;
       imgJson.alt = pid;
       this.imgs.push({ ...imgJson });
     },
-
     setData: function (i) {
       // for (let i = 0; i < this.productInfo.length; i++) {
       var categoriesJson = {};
       var pricesJson = {};
       var cur_pid = this.productInfo[i]["pid"];
-
       // var imgJson = {};
       // this.getImg(cur_pid);
       // imgJson.url = "data:image/;base64," + this.imgFile;
       // imgJson.alt = "img-" + cur_pid;
       // this.imgs.push({ ...imgJson });
-
       categoriesJson.text = this.productInfo[i]["product_type"];
       categoriesJson.alt = "type-" + cur_pid;
-
       pricesJson.text = this.productInfo[i]["price"].toString();
       pricesJson.alt = "price-" + cur_pid;
-
       this.categories.push({ ...categoriesJson });
       this.prices.push({ ...pricesJson });
       // }
     },
-
     itemClickHandler(event) {
       const targetId = event.currentTarget.id;
       console.log(targetId);
@@ -149,13 +138,11 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
 .image {
   background-position: center !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
 }
-
 .content {
   padding: 12px 16px;
   flex-grow: 1;
@@ -163,27 +150,23 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
-
 .brand {
   display: flex;
   align-items: center;
   color: #333333;
 }
-
 .brand .icon {
   flex-shrink: 0;
   height: 20px;
   width: 20px;
   fill: currentColor;
 }
-
 .brand .name {
   margin-left: 4px;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.5;
 }
-
 .title {
   font-size: 14px;
   font-weight: 700;
@@ -191,7 +174,6 @@ export default {
   margin-top: 8px;
   margin-bottom: 8px;
 }
-
 .date {
   font-size: 12px;
   font-weight: 500;
@@ -204,11 +186,9 @@ export default {
 .header {
   margin-bottom: 16px;
 }
-
 main {
   padding: 24px;
 }
-
 @media (min-width: 768px) {
   main {
     padding: 48px;
@@ -223,26 +203,22 @@ main {
   --gap: 16px;
   --margin: 24px;
 }
-
 @media (min-width: 640px) {
   .horizontal {
     --count: 2;
   }
 }
-
 @media (min-width: 768px) {
   .horizontal {
     --count: 3;
     --margin: 0;
   }
 }
-
 @media (min-width: 1024px) {
   .horizontal {
     --count: 4;
   }
 }
-
 @media (min-width: 1280px) {
   .horizontal {
     --gap: 24px;
@@ -259,7 +235,6 @@ You can replace this section entirely for basic responsive CSS logic if you don'
 for the mobile web.
 Note that this responsive logic is hyper sensitive to your design choices, it's not a one size fit all solution.
 var() has only 95% cross browser compatibility, you should convert it to fixed values.
-
 There are 2 set of logic:
 0-768 for peeking optimized for touch scrolling.
 >768 for navigation via buttons for desktop/laptop users.
@@ -270,7 +245,6 @@ There are 2 set of logic:
     width: calc((100% - (var(--margin) * 2) + var(--gap)) / var(--count));
     padding: 0 calc(var(--gap) / 2);
   }
-
   .item:first-child {
     width: calc(
       (100% - (var(--margin) * 2) + var(--gap)) / var(--count) + var(--margin) -
@@ -278,7 +252,6 @@ There are 2 set of logic:
     );
     padding-left: var(--margin);
   }
-
   .item:last-child {
     width: calc(
       (100% - (var(--margin) * 2) + var(--gap)) / var(--count) + var(--margin) -
@@ -286,27 +259,22 @@ There are 2 set of logic:
     );
     padding-right: var(--margin);
   }
-
   .item:only-child {
     width: calc(
       (100% - (var(--margin) * 2) + var(--gap)) / var(--count) + var(--margin) *
         2 - var(--gap)
     );
   }
-
   .horizontal {
     margin: 0 calc(var(--margin) * -1);
   }
-
   .horizontal >>> .v-hl-container {
     scroll-padding: 0 calc(var(--margin) - (var(--gap) / 2));
   }
-
   .horizontal >>> .v-hl-btn {
     display: none;
   }
 }
-
 @media (min-width: 768px) {
   .item {
     width: calc((100% - ((var(--count) - 1) * var(--gap))) / var(--count));
