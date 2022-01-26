@@ -22,6 +22,7 @@
 
 <script>
 import axios from "axios";
+import VueCookies from "vue-cookies";
 let id = "";
 let pw = "";
 let accessToken;
@@ -51,9 +52,14 @@ export default {
         .then((res) => res.data)
         .then((data) => data["data"])
         .then((form) => {
+          console.log(form);
           accessToken = form["accessToken"];
           refreshToken = form["refreshToken"];
           if (accessToken != null && refreshToken != null) {
+            VueCookies.set("uid", data.email, 5000000);
+            VueCookies.set("accessToken", accessToken, 5000000);
+            VueCookies.set("refreshToken", refreshToken, 5000000);
+            console.log(VueCookies.get("uid"));
             console.log(accessToken);
             console.log(refreshToken);
             alert("캇!");
