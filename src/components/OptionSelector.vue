@@ -96,7 +96,7 @@
         <div class="key2" v-if="toggleText3">
           <button
             class="subbutton"
-            id="4"
+            id="7"
             :style="{ background: isActive[6] ? '#616161' : '' }"
             :disabled="isActive[7] || isActive[8]"
             @click="keywordHandler"
@@ -105,7 +105,7 @@
           </button>
           <button
             class="subbutton"
-            id="5"
+            id="8"
             :style="{ background: isActive[7] ? '#616161' : '' }"
             :disabled="isActive[6] || isActive[8]"
             @click="keywordHandler"
@@ -114,7 +114,7 @@
           </button>
           <button
             class="subbutton"
-            id="6"
+            id="9"
             :style="{ background: isActive[8] ? '#616161' : '' }"
             :disabled="isActive[6] || isActive[7]"
             @click="keywordHandler"
@@ -135,6 +135,11 @@
     <div class="refreshCont">
       <button class="nextButton" @click="refreshNLP">
         <span>Refresh</span>
+      </button>
+    </div>
+    <div class="submitCont">
+      <button class="nextButton" @click="basicSubmit">
+        <span>Submit</span>
       </button>
     </div>
   </div>
@@ -220,6 +225,7 @@ export default {
     },
 
     keywordHandler(event) {
+      //숫자로 된 키워드 id (1~9의 값 가짐)
       const targetId = event.currentTarget.id;
       this.isActive[targetId - 1] = !this.isActive[targetId - 1];
     },
@@ -252,9 +258,15 @@ export default {
 </script>
 
 <style scoped>
+.submitCont {
+  position: absolute;
+  top: 85%;
+  left: 85%;
+}
 .refreshCont {
   position: absolute;
-  left: 90%;
+  top: 10%;
+  left: 85%;
 }
 .nextButton {
   -webkit-appearance: none;

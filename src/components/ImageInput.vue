@@ -255,7 +255,7 @@ input {
         </button>
         <br />
         <br />
-        <router-link to="/MakeArticle">
+        <router-link to="/Price">
           <button id="backpack" class="nextButton" :disabled="isLoad">
             <span>Next</span>
           </button>

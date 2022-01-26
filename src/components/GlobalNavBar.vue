@@ -7,9 +7,9 @@
         ></router-link>
       </li>
       <li><router-link class="rl" to="/ImageSubmit">Mac</router-link></li>
-      <li><router-link class="rl" to="/MakeArticle">iPad</router-link></li>
-      <li><router-link class="rl" to="/MultiImg">iPhone</router-link></li>
-      <li><router-link class="rl" to="/Test">Watch</router-link></li>
+      <li><router-link class="rl" to="/Price">iPad</router-link></li>
+      <li><router-link class="rl" to="/MakeArticle">iPhone</router-link></li>
+      <li><router-link class="rl" to="/MultiImg">Watch</router-link></li>
       <li><router-link class="rl" to="/Test">TV</router-link></li>
       <li><router-link class="rl" to="/Test">Music</router-link></li>
       <li><router-link class="rl" to="/Test">Service</router-link></li>
