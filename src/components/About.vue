@@ -71,8 +71,10 @@ export default {
       console.log(this.productInfo.length);
       console.log(this.productInfo[0]["pid"]);
       for (let i = 0; i < this.productInfo.length; i++) {
-        this.setData(i);
         this.getImg(this.productInfo[i]["pid"]);
+      }
+      for (let i = 0; i < this.productInfo.length; i++) {
+        this.setData(i);
       }
     },
     getImg: async function (pid) {
