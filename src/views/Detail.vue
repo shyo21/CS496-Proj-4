@@ -43,10 +43,12 @@ import VueCookies from "vue-cookies";
 export default {
   components: { VueHorizontal },
   created() {
-    this.getProducts();
+    this.pid = VueCookies.get("cur_pid");
+    this.getDetail(this.pid);
   },
   data() {
     return {
+      pid: null,
       productDetail: null,
       test: null,
       isLoading: true,
