@@ -16,7 +16,8 @@
       placeholder="비밀번호를 입력주세요"
     />
     <br />
-    <button @click="submit()">submit</button>
+    <button @click="submit()">로그인</button>
+    <a href="/#/Signup">회원가입</a>
   </div>
 </template>
 
@@ -63,6 +64,7 @@ export default {
             console.log(accessToken);
             console.log(refreshToken);
             alert("캇!");
+            this.$router.push("/");
           }
         });
     },
