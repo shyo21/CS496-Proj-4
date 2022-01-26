@@ -150,6 +150,7 @@
         ></textarea>
       </transition>
     </div>
+    <div><button @click="refreshNLP">Refresh</button></div>
   </div>
 </template>
 
@@ -212,16 +213,15 @@ export default {
     };
   },
   methods: {
-    //NLP post 함수, 물품 상태 인자로 넣어주어야함 >> 새로고침 버튼 클릭 시 호출
-    // eslint-disable-next-line prettier/prettier
-    postNLP: async function(productStatus){
+    refreshNLP() {
+      this.postNLP(this.pStatus);
+    },
+
+    postNLP: async function (productStatus) {
       var nlpPostData = {
-        // eslint-disable-next-line prettier/prettier
-        'category_content_1': "내구성",
-        // eslint-disable-next-line prettier/prettier
-        'category_content_2': "디자인",
-        // eslint-disable-next-line prettier/prettier
-        'category_content_3': productStatus,
+        category_content_1: "내구성",
+        category_content_2: "디자인",
+        category_content_3: productStatus,
       };
 
       axios
@@ -296,14 +296,14 @@ input {
 }
 .textinput1 {
   margin-top: 1rem;
-  margin-left: 19.5rem;
-  width: 80rem;
+  margin-left: 17.2rem;
+  width: 60%;
   height: 5rem;
   border: 1.7px solid #9292926b;
 }
 .textinput2 {
   margin-left: 1.5rem;
-  width: 80rem;
+  width: 60%;
   height: 5rem;
   border: 1.7px solid #9292926b;
 }

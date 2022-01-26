@@ -18,6 +18,8 @@ export default {
 
 <style scoped>
 .container {
-  padding-top: 30px;
+  padding-top: 45px;
+  display: block;
+  height: 650px;
 }
 </style>
