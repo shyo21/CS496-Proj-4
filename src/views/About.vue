@@ -4,9 +4,14 @@
       <h3>Top Stories</h3>
       <p>Responsive sizing, relative to the viewport.</p>
     </div>
-
+    <!-- <img id="sample" :src="this.test" :alt="dd" /> -->
     <vue-horizontal class="horizontal">
-      <div class="item" v-for="(img, index) in imgs" :key="index">
+      <div
+        class="item"
+        v-for="(img, index) in imgs"
+        :key="index"
+        @click="itemClickHandler"
+      >
         <div class="card">
           <img class="image" :src="img.url" :alt="img.alt" />
           <div class="content">
@@ -46,49 +51,87 @@ export default {
   },
   data() {
     return {
+      test: null,
+      isLoading: true,
       productInfo: null,
-      imgs: [
-        { url: require("../imgs/cities/athens.jpg"), alt: "img-1" },
-        { url: require("../imgs/cities/barcelona 1.jpg"), alt: "img-2" },
-        { url: require("../imgs/cities/barcelona 2.jpg"), alt: "img-3" },
-        { url: require("../imgs/cities/florence.jpg"), alt: "img-4" },
-        { url: require("../imgs/cities/London.jpg"), alt: "img-5" },
-        { url: require("../imgs/cities/meteora.jpg"), alt: "img-6" },
-        { url: require("../imgs/cities/New York.jpg"), alt: "img-7" },
-        { url: require("../imgs/cities/Oxford.jpg"), alt: "img-8" },
-        { url: require("../imgs/cities/Paris.jpg"), alt: "img-9" },
-      ],
-      categories: [
-        { text: "car", alt: "category-1" },
-        { text: "laptop", alt: "category-2" },
-        { text: "laptop", alt: "category-3" },
-        { text: "laptop", alt: "category-4" },
-        { text: "laptop", alt: "category-5" },
-        { text: "laptop", alt: "category-6" },
-        { text: "laptop", alt: "category-7" },
-        { text: "laptop", alt: "category-8" },
-        { text: "laptop", alt: "category-9" },
-      ],
-      prices: [
-        { number: 500000, alt: "price-1" },
-        { number: 8000000, alt: "price-1" },
-        { number: 8000000, alt: "price-1" },
-        { number: 8000000, alt: "price-1" },
-        { number: 8000000, alt: "price-1" },
-        { number: 8000000, alt: "price-1" },
-        { number: 8000000, alt: "price-1" },
-        { number: 8000000, alt: "price-1" },
-        { number: 8000000, alt: "price-1" },
-      ],
+      imgFile: null,
+      imgs: [],
+      categories: [],
+      prices: [],
     };
   },
   methods: {
     getProducts: async function () {
-      axios.get("http://54.180.160.3:8080/product/load").then((response) => {
-        console.log(response);
-        this.productInfo = response.data.data;
-        console.log(this.productInfo);
-      });
+      await axios
+        .get("http://54.180.160.3:8080/product/load")
+        .then((response) => {
+          console.log(response);
+          this.productInfo = response.data.data;
+          console.log(this.productInfo);
+          // this.setData();
+        })
+        .catch(function () {
+          console.log("getProducts Failed");
+        });
+      console.log(this.productInfo.length);
+      console.log(this.productInfo[0]["pid"]);
+      for (let i = 0; i < this.productInfo.length; i++) {
+        this.setData(i);
+        this.getImg(this.productInfo[i]["pid"]);
+      }
+    },
+
+    getImg: async function (pid) {
+      let formData = new FormData();
+      formData.append("pid", pid);
+
+      await axios
+        .post("http://192.249.18.199:80/call_img_0", formData)
+        .then((response) => {
+          console.log(response);
+          this.imgFile = response.data;
+          var a = document.getElementById("sample");
+          // a.src = "data:image/;base64," + this.imgFile;
+          this.test = "data:image/;base64," + this.imgFile;
+          console.log(this.imgFile);
+        })
+        .catch(function () {
+          console.log("getImg Failed");
+        });
+
+      var imgJson = {};
+      imgJson.url = "data:image/;base64," + this.imgFile;
+      imgJson.alt = "img-" + pid;
+      this.imgs.push({ ...imgJson });
+    },
+
+    setData: function (i) {
+      // for (let i = 0; i < this.productInfo.length; i++) {
+      var categoriesJson = {};
+      var pricesJson = {};
+      var cur_pid = this.productInfo[i]["pid"];
+
+      // var imgJson = {};
+      // this.getImg(cur_pid);
+      // imgJson.url = "data:image/;base64," + this.imgFile;
+      // imgJson.alt = "img-" + cur_pid;
+      // this.imgs.push({ ...imgJson });
+
+      categoriesJson.text = this.productInfo[i]["product_type"];
+      categoriesJson.alt = "type-" + cur_pid;
+
+      pricesJson.text = this.productInfo[i]["price"].toString();
+      pricesJson.alt = "price-" + cur_pid;
+
+      this.categories.push({ ...categoriesJson });
+      this.prices.push({ ...pricesJson });
+      // }
+    },
+
+    itemClickHandler(event) {
+      const targetId = event.currentTarget.id;
+      console.log(targetId);
+      console.log("hihih");
     },
   },
 };
