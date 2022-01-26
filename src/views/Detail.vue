@@ -1,6 +1,15 @@
 <template>
-  <div class="imgItem" v-for="(img, index) in imgs" :key="index">
+  <!-- <div class="imgItem" v-for="(img, index) in imgs" :key="index">
     <img class="image" :src="img.url" :alt="img.alt" />
+  </div> -->
+  <div class="img_0">
+    <img :src="this.img_0" alt="img_0" />
+  </div>
+  <div class="img_1">
+    <img :src="this.img_1" alt="img_1" />
+  </div>
+  <div class="img_2">
+    <img :src="this.img_2" alt="img_2" />
   </div>
   <div class="idea_1">
     {{ this.productDetail["des_idea_1"] }}
@@ -50,6 +59,9 @@ export default {
       imgs: [],
       category: null,
       prices: null,
+      img_0: null,
+      img_1: null,
+      img_2: null,
     };
   },
   methods: {
@@ -92,6 +104,7 @@ export default {
       imgJson.url = "data:image/;base64," + this.imgFile;
       imgJson.alt = pid + "_0";
       this.imgs.push({ ...imgJson });
+      this.img_0 = "data:image/;base64," + this.imgFile;
     },
 
     getImg1: async function (pid) {
@@ -113,6 +126,7 @@ export default {
       imgJson.url = "data:image/;base64," + this.imgFile;
       imgJson.alt = pid + "_1";
       this.imgs.push({ ...imgJson });
+      this.img_1 = "data:image/;base64," + this.imgFile;
     },
 
     getImg2: async function (pid) {
@@ -134,6 +148,7 @@ export default {
       imgJson.url = "data:image/;base64," + this.imgFile;
       imgJson.alt = pid + "_2";
       this.imgs.push({ ...imgJson });
+      this.img_2 = "data:image/;base64," + this.imgFile;
     },
 
     buyHandler(event) {
