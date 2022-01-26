@@ -43,15 +43,13 @@ import VueCookies from "vue-cookies";
 export default {
   components: { VueHorizontal },
   created() {
-    this.pid = VueCookies.get("cur_pid");
-    this.getDetail();
+    this.getProducts();
   },
   data() {
     return {
       productDetail: null,
       test: null,
       isLoading: true,
-      productInfo: null,
       imgFile: null,
       imgs: [],
       categories: [],
@@ -61,21 +59,21 @@ export default {
   methods: {
     getDetail: async function () {
       await axios
-        .get("http://54.180.160.3:8080/product/load")
+        .get("http://54.180.160.3:8080/product/confirm")
         .then((response) => {
           console.log(response);
-          this.productInfo = response.data.data;
-          console.log(this.productInfo);
+          this.productDetail = response.data.data;
+          console.log(this.productDetail);
         })
         .catch(function () {
           console.log("getProducts Failed");
         });
-      console.log(this.productInfo.length);
-      console.log(this.productInfo[0]["pid"]);
-      for (let i = 0; i < this.productInfo.length; i++) {
-        this.setData(i);
-        this.getImg(this.productInfo[i]["pid"]);
-      }
+      console.log(this.productDetail.length);
+      //   console.log(this.productDetail[0]["pid"]);
+      //   for (let i = 0; i < this.productInfo.length; i++) {
+      //     this.setData(i);
+      //     this.getImg(this.productInfo[i]["pid"]);
+      //   }
     },
 
     getImg: async function (pid) {
@@ -130,7 +128,7 @@ export default {
       console.log(targetId);
       VueCookies.set("cur_pid", targetId);
       //router 지정
-      this.$router.push("/detail");
+      this.$router.push("/");
     },
   },
 };

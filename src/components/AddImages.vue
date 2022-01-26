@@ -74,6 +74,7 @@ export default {
   methods: {
     submitFile() {
       let formData = new FormData();
+      //pid 받아와야함
       formData.append("pid", this.pid);
       formData.append("img_0", this.file_0);
       formData.append("img_1", this.file_1);
@@ -154,7 +155,6 @@ export default {
         }
       }
     },
-
   },
 };
 </script>
