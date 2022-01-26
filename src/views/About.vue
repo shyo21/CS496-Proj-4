@@ -43,7 +43,8 @@ import VueCookies from "vue-cookies";
 export default {
   components: { VueHorizontal },
   created() {
-    this.getProducts();
+    this.pid = VueCookies.get("cur_pid");
+    this.getDetail();
   },
   data() {
     return {
@@ -58,7 +59,7 @@ export default {
     };
   },
   methods: {
-    getProducts: async function () {
+    getDetail: async function () {
       await axios
         .get("http://54.180.160.3:8080/product/load")
         .then((response) => {
@@ -129,7 +130,7 @@ export default {
       console.log(targetId);
       VueCookies.set("cur_pid", targetId);
       //router 지정
-      this.$router.push("/");
+      this.$router.push("/detail");
     },
   },
 };
