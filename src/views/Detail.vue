@@ -50,7 +50,6 @@ export default {
       productDetail: null,
       test: null,
       isLoading: true,
-      productInfo: null,
       imgFile: null,
       imgs: [],
       categories: [],
@@ -58,23 +57,23 @@ export default {
     };
   },
   methods: {
-    getProducts: async function () {
+    getDetail: async function () {
       await axios
-        .get("http://54.180.160.3:8080/product/load")
+        .get("http://54.180.160.3:8080/product/confirm")
         .then((response) => {
           console.log(response);
-          this.productInfo = response.data.data;
-          console.log(this.productInfo);
+          this.productDetail = response.data.data;
+          console.log(this.productDetail);
         })
         .catch(function () {
           console.log("getProducts Failed");
         });
-      console.log(this.productInfo.length);
-      console.log(this.productInfo[0]["pid"]);
-      for (let i = 0; i < this.productInfo.length; i++) {
-        this.setData(i);
-        this.getImg(this.productInfo[i]["pid"]);
-      }
+      console.log(this.productDetail.length);
+      //   console.log(this.productDetail[0]["pid"]);
+      //   for (let i = 0; i < this.productInfo.length; i++) {
+      //     this.setData(i);
+      //     this.getImg(this.productInfo[i]["pid"]);
+      //   }
     },
 
     getImg: async function (pid) {
