@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import VueCookies from "vue-cookies";
+
 export default {
   data() {
     return {
@@ -52,11 +54,21 @@ export default {
   },
   methods: {
     //여기 해야됨 !!
-    priceSubmit() {},
+    priceSubmit() {
+      VueCookies.set("user-price", Number(this.price));
+      this.$router.push("/MakeArticle");
+    },
 
     toggleHandler(event) {
       const targetId = event.currentTarget.id;
       this.isActive[targetId - 1] = !this.isActive[targetId - 1];
+      if (targetId == 1) {
+        VueCookies.set("user-proStatus", "미개봉");
+      } else if (targetId == 2) {
+        VueCookies.set("user-proStatus", "거의 새 것");
+      } else {
+        VueCookies.set("user-proStatus", "사용감 있음");
+      }
     },
   },
 };
