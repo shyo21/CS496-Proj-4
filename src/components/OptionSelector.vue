@@ -150,6 +150,7 @@
         ></textarea>
       </transition>
     </div>
+    <div><button @click="refreshNLP">Refresh</button></div>
   </div>
 </template>
 
@@ -212,7 +213,10 @@ export default {
     };
   },
   methods: {
-    //NLP post 함수, 물품 상태 인자로 넣어주어야함 >> 새로고침 버튼 클릭 시 호출
+    refreshNLP() {
+      this.postNLP(this.pStatus);
+    },
+
     postNLP: async function (productStatus) {
       var nlpPostData = {
         category_content_1: "내구성",
@@ -292,14 +296,14 @@ input {
 }
 .textinput1 {
   margin-top: 1rem;
-  margin-left: 19.5rem;
-  width: 80rem;
+  margin-left: 17.2rem;
+  width: 60%;
   height: 5rem;
   border: 1.7px solid #9292926b;
 }
 .textinput2 {
   margin-left: 1.5rem;
-  width: 80rem;
+  width: 60%;
   height: 5rem;
   border: 1.7px solid #9292926b;
 }
