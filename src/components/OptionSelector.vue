@@ -124,32 +124,14 @@
         </div>
       </transition>
     </div>
-    <div class="key1">
-      <button class="mainbutton" id="alt1" @click="keywordMenuHandler">
-        <span>{{ other1 }}</span>
-      </button>
-      <transition name="slide-fade">
-        <textarea
-          class="textinput2"
-          v-if="toggleText4"
-          v-model="message4"
-          placeholder="여러줄을 입력해보세요"
-        ></textarea>
-      </transition>
-    </div>
-    <div class="key1">
-      <button class="mainbutton" id="alt2" @click="keywordMenuHandler">
-        <span>{{ other2 }}</span>
-      </button>
-      <transition name="slide-fade">
-        <textarea
-          class="textinput2"
-          v-if="toggleText5"
-          v-model="message5"
-          placeholder="여러줄을 입력해보세요"
-        ></textarea>
-      </transition>
-    </div>
+    <transition name="slide-fade">
+      <textarea
+        class="textinput1"
+        v-if="toggleText3"
+        v-model="message3"
+        placeholder="여러줄을 입력해보세요"
+      ></textarea>
+    </transition>
     <div><button @click="refreshNLP">Refresh</button></div>
   </div>
 </template>
@@ -158,11 +140,6 @@
 import axios from "axios";
 
 export default {
-  components: {},
-  beforeMount() {
-    this.other1 = "키워드 1";
-    this.other2 = "키워드 2";
-  },
   created() {
     this.pStatus = "상태-" + "미개봉";
     //인자를 넣어줘야 합니다! (동적으로)
@@ -193,8 +170,6 @@ export default {
       toggleText1: false,
       toggleText2: false,
       toggleText3: false,
-      toggleText4: false,
-      toggleText5: false,
       sentence1: "",
       sentence2: "",
       sentence3: "",
@@ -207,8 +182,8 @@ export default {
       other1: "",
       other2: "",
       message1: "",
-      message4: "",
-      message5: "",
+      message2: "",
+      message3: "",
       nlpResult: null,
     };
   },
@@ -266,12 +241,6 @@ export default {
           this.sentence8 = this.nlpResult[this.pStatus][1];
           this.sentence9 = this.nlpResult[this.pStatus][2];
           break;
-        case "alt1":
-          this.toggleText4 = !this.toggleText4;
-          break;
-        case "alt2":
-          this.toggleText5 = !this.toggleText5;
-          break;
       }
     },
   },
@@ -297,12 +266,6 @@ input {
 .textinput1 {
   margin-top: 1rem;
   margin-left: 17.2rem;
-  width: 60%;
-  height: 5rem;
-  border: 1.7px solid #9292926b;
-}
-.textinput2 {
-  margin-left: 1.5rem;
   width: 60%;
   height: 5rem;
   border: 1.7px solid #9292926b;

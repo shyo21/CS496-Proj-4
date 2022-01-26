@@ -164,7 +164,7 @@ input {
         <br />
         <button
           class="submitButton"
-          v-on:click="submitFile()"
+          v-on:click="postClicked()"
           :disabled="isLoad"
         >
           <span>Car</span>
@@ -173,7 +173,7 @@ input {
         <br />
         <button
           class="submitButton"
-          v-on:click="submitFile()"
+          v-on:click="postClicked()"
           :disabled="isLoad"
         >
           <span>laptop</span>
@@ -182,7 +182,7 @@ input {
         <br />
         <button
           class="submitButton"
-          v-on:click="submitFile()"
+          v-on:click="postClicked()"
           :disabled="isLoad"
         >
           <span>backpack</span>
@@ -216,6 +216,8 @@ export default {
   },
 
   methods: {
+    postClicked() {},
+
     scrollTo() {
       window.scrollTo({ top: 1000, behavior: "smooth" });
     },
