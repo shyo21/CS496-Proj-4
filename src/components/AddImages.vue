@@ -141,6 +141,7 @@
 
 <script>
 import axios from "axios";
+import VueCookies from "vue-cookies";
 
 export default {
   data() {
@@ -154,14 +155,13 @@ export default {
       file_2: "",
       showPreview_2: false,
       imagePreview_2: "",
-      pid: 0,
+      pid: VueCookies.get("user-pid"),
     };
   },
 
   methods: {
     submitFile() {
       let formData = new FormData();
-      //pid 받아와야함
       formData.append("pid", this.pid);
       formData.append("img_0", this.file_0);
       formData.append("img_1", this.file_1);
